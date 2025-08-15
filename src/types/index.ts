@@ -5,6 +5,7 @@ import {
 
 export type VoiceRecord = unknown;
 
+/*
 export type MemoRecord = {
   id: string;
   title: string;
@@ -13,11 +14,15 @@ export type MemoRecord = {
   description: string;
   records: Array<VoiceRecord>; // ! save all mb usefull in future
 };
+*/
 
 export type MemoListState = {
-  memoList: Array<MemoRecord>;
+  memoList: Array<AddMemoFormValue>;
 };
 
+export type MemoRecord = AddMemoFormValue;
+
+// MemoRecord
 export type AddMemoHandler = (item: AddMemoFormValue) => void;
 
 export { type AddMemoFormValue, type AddTokenFormValue };
