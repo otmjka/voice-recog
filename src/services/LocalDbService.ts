@@ -1,11 +1,11 @@
-import type { AddMemoFormValue } from '@/types';
+import type { MemoRecord } from '@/types';
 
 export type FetchParams = {
   offset: number;
   size: number;
 };
 
-class LocalDbService {
+export class LocalDbService {
   private dbName: string = 'MemoDB';
   private storeName: string = 'memos';
   private dbPromise: Promise<IDBDatabase> | null = null;
@@ -36,43 +36,59 @@ class LocalDbService {
     return this.dbPromise;
   }
 
-  async addMemo(memo: AddMemoFormValue) {
+  async addMemo(
+    memo: MemoRecord,
+  ): Promise<{ result?: boolean; error?: unknown }> {
     const db = await this.initDB();
     const transaction = db.transaction([this.storeName], 'readwrite');
     const store = transaction.objectStore(this.storeName);
-    const request = store.add(memo);
+    store.put(memo);
 
     return new Promise((resolve, reject) => {
-      request.onsuccess = () => resolve({});
-      request.onerror = () => reject(request.error);
+      transaction.oncomplete = () => resolve({ result: true });
+      transaction.onerror = () => reject({ error: transaction.error });
     });
   }
 
-  async getMemos(
-    params: FetchParams,
-    callback: (items: AddMemoFormValue[]) => void,
-  ): Promise<void> {
+  async getMemosPromise(): Promise<{ result?: MemoRecord[]; error?: unknown }> {
     try {
       const db = await this.initDB();
       const transaction = db.transaction([this.storeName], 'readonly');
       const store = transaction.objectStore(this.storeName);
       const request = store.getAll();
 
-      request.onsuccess = () => {
-        const items = request.result as AddMemoFormValue[];
-        const paginatedItems = items.slice(
-          params.offset,
-          params.offset + params.size,
-        );
-        callback(paginatedItems);
-      };
+      return new Promise((resolve, reject) => {
+        request.onsuccess = () => {
+          const items = (request.result as MemoRecord[]).sort(
+            (a, b) => Number(b.id) - Number(a.id),
+          );
+          resolve({ result: items });
+        };
 
-      request.onerror = () => {
-        throw request.error;
-      };
+        request.onerror = () => {
+          reject({ error: request.error });
+        };
+      });
     } catch (error) {
       console.error('Error fetching memos:', error);
-      callback([]);
+      return { error };
+    }
+  }
+
+  async deleteMemo(id: string): Promise<{ result?: boolean; error?: unknown }> {
+    try {
+      const db = await this.initDB();
+      const transaction = db.transaction([this.storeName], 'readwrite');
+      const store = transaction.objectStore(this.storeName);
+      const request = store.delete(id);
+
+      return new Promise((resolve, reject) => {
+        request.onsuccess = () => resolve({ result: true });
+        request.onerror = () => reject({ error: transaction.error });
+      });
+    } catch (error) {
+      console.error(error);
+      return { error };
     }
   }
 }

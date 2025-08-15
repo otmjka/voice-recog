@@ -1,31 +1,56 @@
-import {
-  type AddMemoFormValue,
-  type AddTokenFormValue,
-} from '../utils/validators';
+import { z } from 'zod';
+
+const VoiceRecordSchema = z.any().nullable();
+const SpeachResultSchema = z.string().nullable();
+
+/* */
+
+export const memoIdSchema = z.string();
+
+export type MemoId = z.infer<typeof memoIdSchema>;
+
+export const tokenFormSchema = z.object({
+  token: z.string().min(1),
+});
+
+const TokenSchema = tokenFormSchema;
+/* */
+export const createNewMemoSchema = z.object({
+  id: memoIdSchema, // MemoId
+  title: z.string(),
+  tokens: z.array(TokenSchema),
+  description: z.string().optional(),
+  audio: VoiceRecordSchema,
+  speach: SpeachResultSchema,
+  created: z.number().optional(),
+  updated: z.number().optional(),
+});
+
+export type AddMemoFormValue = z.infer<typeof createNewMemoSchema>;
+export type MemoRecord = AddMemoFormValue;
 
 export type VoiceRecord = unknown;
 
-/*
-export type MemoRecord = {
-  id: string;
-  title: string;
-  tokens: Array<Token>;
-  summary: string;
-  description: string;
-  records: Array<VoiceRecord>; // ! save all mb usefull in future
-};
-*/
-
+/** */
+/** States */ // TODO: => MainPage space
 export type MemoListState = {
   memoList: Array<AddMemoFormValue>;
+  onEdit: (params: { id: MemoId }) => void;
+  onRemove: (params: { id: MemoId }) => void;
 };
-
-export type MemoRecord = AddMemoFormValue;
 
 // MemoRecord
 export type AddMemoHandler = (item: AddMemoFormValue) => void;
 
-export { type AddMemoFormValue, type AddTokenFormValue };
-
+/** */
+/** Tokens */
+export type AddTokenFormValue = z.infer<typeof tokenFormSchema>;
 export type Token = AddTokenFormValue; // {'12332': 'daily', '2341': 'note'}
 export type TokenListItems = Array<Token>;
+
+export type RecResult = {
+  audio: { result?: Blob; error?: unknown };
+  speach: { result?: string; error?: unknown };
+};
+
+export type OnRecordResultHandler = (params: RecResult) => void;
