@@ -5,7 +5,7 @@ import type { FC } from 'react';
 import MemoList from './MemoList';
 import { CreateNew } from '../CreateNew';
 
-const MainPage: FC<{ onClick?: () => void }> = ({ onClick }) => {
+const MainPage: FC = () => {
   const state = useMainPage();
   return (
     <Container>
