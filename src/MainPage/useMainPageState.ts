@@ -1,12 +1,12 @@
 import { useReducer } from 'react';
-import type { AddMemoHandler, MemoRecord } from '../types';
+import type { AddMemoFormValue, AddMemoHandler } from '../types';
 
 const initialArg = {
   memoList: [],
 };
 
 type MainPageState = {
-  memoList: Array<MemoRecord>;
+  memoList: Array<AddMemoFormValue>;
 };
 enum ActionTypes {
   add = 'add',
@@ -14,7 +14,7 @@ enum ActionTypes {
 
 type AddMemoAction = {
   type: ActionTypes.add;
-  payload: MemoRecord;
+  payload: AddMemoFormValue;
 };
 
 type MainPageActions = AddMemoAction;
@@ -34,7 +34,7 @@ type UseMainPageStateReturn = {
 const useMainPageState = (): UseMainPageStateReturn => {
   const [state, dispatch] = useReducer(reducer, initialArg);
 
-  const handleAddMemo = (item: MemoRecord) => {
+  const handleAddMemo = (item: AddMemoFormValue) => {
     dispatch({
       type: ActionTypes.add,
       payload: item,
