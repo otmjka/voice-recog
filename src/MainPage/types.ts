@@ -1,5 +1,6 @@
 import type { MemoListState, AddMemoHandler } from '../types';
-export type CreateNewState = { onAddNew: AddMemoHandler };
+
+export type CreateNewState = { onSubmit: AddMemoHandler };
 
 export type MainPageState = {
   memoListState: MemoListState;

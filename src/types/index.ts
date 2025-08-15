@@ -1,9 +1,13 @@
-export type VoiceRecord = unknown;
+import {
+  type AddMemoFormValue,
+  type AddTokenFormValue,
+} from '../utils/validators';
 
-export type Token = string; // {'12332': 'daily', '2341': 'note'}
+export type VoiceRecord = unknown;
 
 export type MemoRecord = {
   id: string;
+  title: string;
   tokens: Array<Token>;
   summary: string;
   description: string;
@@ -14,4 +18,9 @@ export type MemoListState = {
   memoList: Array<MemoRecord>;
 };
 
-export type AddMemoHandler = (item: MemoRecord) => void;
+export type AddMemoHandler = (item: AddMemoFormValue) => void;
+
+export { type AddMemoFormValue, type AddTokenFormValue };
+
+export type Token = AddTokenFormValue; // {'12332': 'daily', '2341': 'note'}
+export type TokenListItems = Array<Token>;
