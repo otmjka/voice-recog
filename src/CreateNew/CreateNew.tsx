@@ -16,12 +16,15 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 
-import type { CreateNewState } from '../MainPage/types';
-import generateNewTitle from './generateNewTitle';
-import TokensForm from './TokensForm/TokensForm';
 import type { AddMemoFormValue } from '@/types';
 import { createNewMemoSchema } from '@/utils/validators';
-import { ChangeFromTestId } from './enums';
+import { ChangeFromTestId } from '@/enums/dataTestId';
+
+import type { CreateNewState } from '../MainPage/types';
+import TokensForm from '../components/uiKit/TokensForm/TokensForm';
+
+import generateNewTitle from './generateNewTitle';
+
 // same as edit
 const CreateNew: FC<{
   state: CreateNewState;
@@ -76,6 +79,7 @@ const CreateNew: FC<{
               <FormControl>
                 <Textarea
                   className="bg-purple-200"
+                  data-testid={ChangeFromTestId.summaryInput}
                   placeholder="Summary"
                   {...field}
                 />
@@ -93,6 +97,7 @@ const CreateNew: FC<{
               <FormControl>
                 <Textarea
                   className="bg-purple-200"
+                  data-testid={ChangeFromTestId.inputDescription}
                   placeholder="description"
                   {...field}
                 />
@@ -101,7 +106,11 @@ const CreateNew: FC<{
           )}
         />
 
-        <Button type="submit" disabled={!form.formState.isValid}>
+        <Button
+          type="submit"
+          data-testid={ChangeFromTestId.submitMemo}
+          disabled={!form.formState.isValid}
+        >
           Submit
         </Button>
       </form>

@@ -1,8 +1,12 @@
+import { act } from 'react';
+
 import { render } from '@testing-library/react';
+
+import type { Token } from '@/types';
+
 import TokensForm from '../TokensForm';
 import { addToken } from './helpers/addToken';
-import { act } from 'react';
-import type { Token } from '@/types';
+
 const TOKENS = ['new', 'daily', 'task'];
 
 describe('add tokens form', () => {

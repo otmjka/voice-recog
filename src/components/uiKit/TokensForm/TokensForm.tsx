@@ -1,17 +1,17 @@
 import { type FC } from 'react';
 import { z } from 'zod';
-
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
-
 import { FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+
 import { TokenList } from '@/components/uiKit';
 import type { AddTokenFormValue, Token } from '@/types';
 import { tokenFormSchema } from '@/utils/validators';
-import { ChangeFromTestId } from '../enums';
+import { ChangeFromTestId } from '@/enums/dataTestId';
 
 type TokensFormProps = {
   value: Token[];
