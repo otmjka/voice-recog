@@ -16,11 +16,12 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 
-import type { CreateNewState } from '../types';
+import type { CreateNewState } from '../MainPage/types';
 import generateNewTitle from './generateNewTitle';
-import TokensForm from './TokensForm';
+import TokensForm from './TokensForm/TokensForm';
 import type { AddMemoFormValue } from '@/types';
 import { createNewMemoSchema } from '@/utils/validators';
+import { ChangeFromTestId } from './enums';
 // same as edit
 const CreateNew: FC<{
   state: CreateNewState;
@@ -47,7 +48,11 @@ const CreateNew: FC<{
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="title" {...field} />
+                <Input
+                  data-testid={ChangeFromTestId.titleInput}
+                  placeholder="title"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -57,7 +62,9 @@ const CreateNew: FC<{
         <FormField
           control={form.control}
           name="tokens"
-          render={({ field }) => <TokensForm {...field} />}
+          render={({ field }) => (
+            <TokensForm value={field.value} onChange={field.onChange} />
+          )}
         />
 
         <FormField

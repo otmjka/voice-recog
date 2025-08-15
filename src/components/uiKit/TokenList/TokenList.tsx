@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 
 import type { AddTokenFormValue, TokenListItems } from '@/types';
 
+const prefix = 'token-badge-';
+
 const TokenList: FC<{
   items: TokenListItems;
   onRemove?: (item: AddTokenFormValue) => void;
@@ -17,11 +19,12 @@ const TokenList: FC<{
         className="flex items-center gap-1"
       >
         <div className="flex items-center">
-          <div>{item.token}</div>
+          <div data-testid={`${prefix}${item.token}`}>{item.token}</div>
 
           {onRemove && (
             <div>
               <Button
+                data-testid={`${prefix}${item.token}-rm`}
                 type="button"
                 onClick={() => onRemove(item)}
                 className="bg-pink-800 ml-1 px-2 text-xs text-white hover:text-red-700 size-[14px]"

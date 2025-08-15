@@ -1,3 +1,1 @@
-import TokenList from './TokenList';
-
-export { TokenList };
+export { TokenList } from './TokenList';

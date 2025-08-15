@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import type { MemoRecord } from '../types';
-import { TokenList } from '@/components/uiKit';
+
 import {
   Card,
   CardAction,
@@ -11,6 +11,7 @@ import {
 import { ChevronRightIcon, Mic, Trash } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { TokenList } from '@/components/uiKit';
 
 const MemoItem: FC<{ memoItem: MemoRecord }> = ({ memoItem }) => {
   return (

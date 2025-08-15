@@ -4,16 +4,20 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import type { ControllerRenderProps } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 
-import { FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { TokenList } from '@/components/uiKit';
-import type { AddMemoFormValue, AddTokenFormValue } from '@/types';
+import type { AddTokenFormValue, Token } from '@/types';
 import { tokenFormSchema } from '@/utils/validators';
+import { ChangeFromTestId } from '../enums';
 
-type TokensFormProps = ControllerRenderProps<AddMemoFormValue, 'tokens'>;
+type TokensFormProps = {
+  value: Token[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange: (...event: any[]) => void;
+};
 
 const TokensForm: FC<TokensFormProps> = ({ value, onChange }) => {
   const form = useForm<AddTokenFormValue>({
@@ -42,6 +46,7 @@ const TokensForm: FC<TokensFormProps> = ({ value, onChange }) => {
             render={({ field }) => (
               <Input
                 className="min-w-[50px] max-w-[70px] py-0"
+                data-testid={ChangeFromTestId.addTokenInput}
                 {...field}
                 placeholder="Enter token"
               />
@@ -50,6 +55,7 @@ const TokensForm: FC<TokensFormProps> = ({ value, onChange }) => {
 
           <Button
             className="text-xs px-2 py-0"
+            data-testid={ChangeFromTestId.addTokenSubmit}
             onClick={form.handleSubmit(onSubmit)}
           >
             +

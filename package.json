@@ -8,6 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "test": "vitest",
+    "test:dev": "VITEST_MAX_LOG_SIZE=Infinity vitest --watch",
+    "test:dexmpl": "VITEST_MAX_LOG_SIZE=Infinity npx vitest src/CreateNew/TokensForm/__tests__/TokensForm.test.tsx --watch",
     "preview": "vite preview"
   },
   "dependencies": {
