@@ -1,6 +1,7 @@
-import { ChangeFromTestId } from '@/CreateNew/enums';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import { ChangeFromTestId } from '@/enums/dataTestId';
 
 export const addToken = async (tokenValue: string) => {
   const inputTokens = screen.getByTestId(ChangeFromTestId.addTokenInput);

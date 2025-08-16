@@ -23,4 +23,6 @@ export const createNewMemoSchema = z.object({
   tokens: z.array(TokenSchema), // может быть пустым
   description: z.string().optional(),
   records: z.array(VoiceRecordSchema), // может быть пустым
+  created: z.number().optional(),
+  updated: z.number().optional(),
 });
