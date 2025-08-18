@@ -65,8 +65,6 @@ export const createMemoTableColumns: ({
   {
     id: 'actions',
     cell: ({ row }) => {
-      const memo = row.original;
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -77,11 +75,7 @@ export const createMemoTableColumns: ({
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(memo.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
+
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => onEdit({ id: row.original.id })}>
               Edit
