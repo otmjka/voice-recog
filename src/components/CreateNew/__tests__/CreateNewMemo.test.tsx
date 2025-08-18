@@ -4,11 +4,16 @@ import CreateNew from '../CreateNew';
 import { vi } from 'vitest';
 import { fillFormWith } from './helpers/fillFormWith';
 import { clickSubmitNewMemoForm } from './helpers/clickSubmitNewMemoForm';
+import { LanguageProvider } from '@/context/LanguageContext';
 
 describe('create new memo form', () => {
   it('render form', async () => {
     const handleSubmit = vi.fn();
-    render(<CreateNew state={{ onSubmit: handleSubmit }} />);
+    render(
+      <LanguageProvider>
+        <CreateNew onSubmit={handleSubmit} />
+      </LanguageProvider>,
+    );
     const TOKENS = ['new', 'daily', 'task'];
     const TITLE_INPUT = 'new memo 001';
     await fillFormWith({
@@ -24,11 +29,11 @@ describe('create new memo form', () => {
       expect.objectContaining({
         description:
           'daily note a couple word about training process changes to improove the flow',
-        id: '«r0»',
-        records: [],
-        summary: 'daily note about training process',
+        id: expect.any(String),
         title: 'new memo 001',
         tokens: [{ token: 'task' }, { token: 'daily' }, { token: 'new' }],
+        speach: null,
+        audio: null,
       }),
       expect.anything(),
     );

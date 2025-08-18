@@ -1,8 +1,13 @@
 import type { FC } from 'react';
-import { MainPage } from './MainPage';
+import { MainPage } from './components/MainPage';
+import { LanguageProvider } from './context/LanguageContext';
 
 const App: FC = () => {
-  return <MainPage />;
+  return (
+    <LanguageProvider>
+      <MainPage />
+    </LanguageProvider>
+  );
 };
 
 export default App;

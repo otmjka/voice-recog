@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 
 import { TokenList } from '@/components/uiKit';
 import type { AddTokenFormValue, Token } from '@/types';
-import { tokenFormSchema } from '@/utils/validators';
+import { tokenFormSchema } from '@/types';
 import { ChangeFromTestId } from '@/enums/dataTestId';
 
 type TokensFormProps = {

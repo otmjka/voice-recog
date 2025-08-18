@@ -25,14 +25,6 @@ export const fillFormWith = async (params: {
   await addToken(params.tokens[1]);
   await addToken(params.tokens[2]);
 
-  /* summary */
-
-  const inputSummary = screen.getByTestId(ChangeFromTestId.summaryInput);
-  await userEvent.clear(inputSummary);
-  await userEvent.type(inputSummary, params.summary);
-
-  expect(inputSummary).toHaveValue(params.summary);
-
   /* description */
 
   const inputDescription = screen.getByTestId(
