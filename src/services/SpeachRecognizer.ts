@@ -32,22 +32,18 @@ class SpeechRecognizer {
     this.recognition.interimResults = true;
 
     this.recognition.onstart = () => {
-      console.log('onStart');
       this.recognizing = true;
     };
 
     this.recognition.onerror = (event) => {
-      console.log('error', event.error, event);
       this.onResult({ error: event.error });
     };
 
     this.recognition.onend = () => {
-      console.log('!!!opened');
       this.recognizing = false;
     };
 
     this.recognition.onresult = (event) => {
-      console.log('result', event);
       let interimTranscript = '';
       if (typeof event.results == 'undefined') {
         if (this.recognition) {
@@ -63,8 +59,6 @@ class SpeechRecognizer {
           interimTranscript += event.results[i][0].transcript;
         }
       }
-      console.log('final', this.finalTranscript);
-      console.log('inter', interimTranscript);
       this.onResult({
         result: {
           finalTranscript: this.finalTranscript,

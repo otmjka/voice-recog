@@ -26,7 +26,6 @@ import { VoiceRecorder } from '@/components/VoiceRecorder';
 
 import TokensForm from '../uiKit/TokensForm/TokensForm';
 
-// same as edit
 const CreateNew: FC<{
   value?: MemoRecord;
   onSubmit: (value: MemoRecord) => void;
@@ -37,7 +36,6 @@ const CreateNew: FC<{
   });
 
   const handlerOnRecorderResult: OnRecordResultHandler = (params) => {
-    console.log(params);
     if (params.speach.result) {
       const currentDescription = form.getValues('description') ?? '';
       form.setValue(

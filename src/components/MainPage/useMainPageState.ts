@@ -50,7 +50,11 @@ const useMainPageState = (): UseMainPageStateReturn => {
   );
 
   const handleOpenEditMemoDialog = useCallback(
-    (isOpen: boolean) => handleUpdateState({ editMemoDialogOpened: isOpen }),
+    (isOpen: boolean) =>
+      handleUpdateState({
+        editMemoDialogOpened: isOpen,
+        ...(!isOpen ? { editValue: undefined } : {}),
+      }),
     [handleUpdateState],
   );
 
